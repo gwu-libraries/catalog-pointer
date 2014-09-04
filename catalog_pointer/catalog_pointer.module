@@ -23,8 +23,8 @@ function catalog_pointer_menu() {
   $items = array();
 
   $items['admin/config/content/catalog_pointer'] = array(
-    'title' => 'Catalog Pointer Configuration',
-    'description' => 'Configuration for the Catalog Pointer',
+    'title' => 'Catalog Search Configuration',
+    'description' => 'Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('catalog_pointer_form'),
     'access arguments' => array('access administration pages'),
