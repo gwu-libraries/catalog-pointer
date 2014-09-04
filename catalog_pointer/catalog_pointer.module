@@ -8,14 +8,14 @@
  /**
  * Defines the Catalog Pointer admin settings form 
  */
-function catalog_pointer_admin_settings_form() {
-  $form['catalog_target'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Target URL for the Catalog Search'),
-    '#default_value' => variable_get('catalog_target', t('http://findit.library.gwu.edu/search')),
-  );
-  return system_settings_form($form);
-}
+//function catalog_pointer_admin_settings_form() {
+//  $form['catalog_target'] = array(
+//    '#type' => 'textfield',
+//    '#title' => t('Target URL for the Catalog Search'),
+//    '#default_value' => variable_get('catalog_target', t('http://findit.library.gwu.edu/search')),
+//  );
+//  return system_settings_form($form);
+//}
 
 /* more... */
 
