@@ -33,3 +33,17 @@ function catalog_pointer_menu() {
 
   return $items;
 }
+
+function catalog_pointer_form($form, &$form_state) {
+  $form['catalog_pointer_targets'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Catalog Pointer'),
+    '#default_value' => variable_get('catalog_pointer_targets', 1),
+    '#size' => 40,
+    '#maxlength' => 80,
+    '#description' => t('The number of target vars we have (test field).'),
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
+}
