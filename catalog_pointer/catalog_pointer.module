@@ -19,14 +19,14 @@ function catalog_pointer_admin_settings_form() {
 
 /* more... */
 
-function library_hours_menu() {
+function catalog_pointer_menu() {
   $items = array();
 
-  $items['admin/config/content/library_hours'] = array(
-    'title' => 'Library Hours Configuration',
-    'description' => 'Configuration for Library Hours module',
+  $items['admin/config/content/catalog_pointer'] = array(
+    'title' => 'Catalog Pointer Configuration',
+    'description' => 'Configuration for the Catalog Pointer',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('library_hours_form'),
+    'page arguments' => array('catalog_pointer_form'),
     'access arguments' => array('access administration pages'),
     'type' => MENU_NORMAL_ITEM,
   );
