@@ -5,6 +5,10 @@
  * Provide the functions for the Catalog Pointer module
  */
 
+// pulling var from new admin form (test)
+$catalogTarget = variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search');
+global $catalogTarget;
+
  /**
  * Defines the Catalog Pointer admin settings form 
  */
