@@ -29,7 +29,7 @@ function catalog_pointer_menu() {
 
   $items['admin/config/content/catalog_pointer'] = array(
     'title' => 'Catalog Search Configuration',
-    'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search. <ul><li>Default target (Summon is up) http://findit.library.gwu.edu</li><li>Test/beta: http://gwfindit-beta.wrlc.org)</li><li>The fallback if Summon is down: http://discovery.wrlc.org</li></ul>'),
+    'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('catalog_pointer_form'),
     'access arguments' => array('access administration pages'),
@@ -46,7 +46,7 @@ function catalog_pointer_form($form, &$form_state) {
     '#default_value' => variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search'),
     '#size' => 40,
     '#maxlength' => 80,
-    '#description' => t('Target URL for the Libraries catalog search (testing).'),
+    '#description' => t('Target URL for the Libraries catalog search. <ul><li>Default target (Summon is up) http://findit.library.gwu.edu.</li><li>Test/beta: http://gwfindit-beta.wrlc.org.</li><li>The fallback if Summon is down: http://discovery.wrlc.org.</li></ul>'),
     '#required' => TRUE,
   );
 
