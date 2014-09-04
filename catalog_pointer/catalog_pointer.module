@@ -6,8 +6,9 @@
  */
 
 // pulling var from new admin form (test)
-$catalogTarget = variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search');
 global $catalogTarget;
+$catalogTarget = variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search');
+
 
  /**
  * Defines the Catalog Pointer admin settings form 
@@ -28,7 +29,7 @@ function catalog_pointer_menu() {
 
   $items['admin/config/content/catalog_pointer'] = array(
     'title' => 'Catalog Search Configuration',
-    'description' => 'Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.',
+    'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search. <ul><li>Default target (Summon is up) http://findit.library.gwu.edu</li><li>Test/beta: http://gwfindit-beta.wrlc.org)</li><li>The fallback if Summon is down: http://discovery.wrlc.org</li></ul>'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('catalog_pointer_form'),
     'access arguments' => array('access administration pages'),
