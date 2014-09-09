@@ -7,19 +7,26 @@
 
 // pulls var from admin form
 function catalog_pointer_url(){
-  global $catalogTarget;
   $catalogTarget = variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search');
   return $catalogTarget;
 }
 
 // checks to see if the Default target is selected
 function catalog_pointer_check(){
-  $catalogCheckbox = variable_get('catalog_pointer_default', '1');
+  $catalogDefaultBox = variable_get('catalog_pointer_default', '1');
+  $catalogFallbackBox = variable_get('catalog_pointer_fallback', '1');
+  $catalogAlternateBox = variable_get('catalog_pointer_alternate', '1');
   if ($catalogCheckbox == 1) {
     $catalogTarget = 'http://findit.library.gwu.edu/search';
   }
-  else {
+  elseif ($catalogFallbackBox == 1) {
+    $catalogTarget = 'http://discovery.wrlc.org';
+  }
+  elseif ($catalogAlternateBox == 1) {
     $catalogTarget = catalog_pointer_url();
+  }
+  else {
+    $catalogTarget = 'http://findit.library.gwu.edu/search';
   }
   return $catalogTarget;
 }
