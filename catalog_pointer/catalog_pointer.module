@@ -17,23 +17,37 @@ function catalog_get_option(){
   return $catalogDefault;  
 }
 
-// checks to see if the Default target is selected
+// Checks to see if the Default target is selected (this is the function that is called in jsbottom.html for the GW Libraries Drupal theme).
 function catalog_pointer_check(){
-  $catalogDefaultBox = variable_get('catalog_pointer_default', '1');
-  $catalogFallbackBox = variable_get('catalog_pointer_fallback', '0');
-  $catalogAlternateBox = variable_get('catalog_pointer_alternate', '0');
-  if ($catalogDefaultBox == 1) {
+  //$catalogDefaultBox = variable_get('catalog_pointer_default', '1');
+  //$catalogFallbackBox = variable_get('catalog_pointer_fallback', '0');
+  //$catalogAlternateBox = variable_get('catalog_pointer_alternate', '0');
+  //if ($catalogDefaultBox == 1) {
+  //  $catalogTarget = 'http://findit.library.gwu.edu/search';
+  //}
+  //elseif ($catalogFallbackBox == 1) {
+  //  $catalogTarget = 'http://discovery.wrlc.org';
+  //}
+  //elseif ($catalogAlternateBox == 1) {
+  //  $catalogTarget = catalog_pointer_url();
+  //}
+  //else {
+  //  $catalogTarget = 'http://findit.library.gwu.edu/search';
+  //}
+
+  if (catalog_get_option() == 'default') {
     $catalogTarget = 'http://findit.library.gwu.edu/search';
   }
-  elseif ($catalogFallbackBox == 1) {
+  elseif (catalog_get_option() == 'fallback') {
     $catalogTarget = 'http://discovery.wrlc.org';
   }
-  elseif ($catalogAlternateBox == 1) {
+  elseif (catalog_get_option() == 'alternate') {
     $catalogTarget = catalog_pointer_url();
   }
   else {
     $catalogTarget = 'http://findit.library.gwu.edu/search';
-  }
+  }  
+
   return $catalogTarget;
 }
 
@@ -68,45 +82,46 @@ function catalog_pointer_menu() {
 
 function catalog_pointer_form($form, &$form_state) {
 
+    // Sets options as array for radio buttons.
     $radioOptions = array(
-    'default'=>t('default catalog'),
-    'fallback'=>t('fallback catalog'),
-    'alternate'=>t('alternate url')
+    'default'=>t('Use the default catalog (Launchpad/Summon) http://findit.library.gwu.edu/search'),
+    'fallback'=>t('Use the WRLC catalog (fallback if Summon is down) http://discovery.wrlc.org'),
+    'alternate'=>t('Set the URL manually below')
     );
-
-    $testVar = catalog_get_option();
 
   $form['catalog_radio_choice'] = array(
     '#type' => 'radios',
     '#title' => t('Choose the target for the Catalog search'),
-    '#description' => $testVar,
+    '#description' => t('Set the target URL for the catalog to use. This should only be changed from the default for testing or if there are issues with the Catalog Search (i.e. Summon is down)'),
     '#options' => $radioOptions,
     '#default_value'=>catalog_get_option(),
   );
 
-  $form['catalog_pointer_default'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Use the Default Catalog'),
-    '#default_value' => variable_get('catalog_pointer_default', 1),
-    '#description' => t('Use the default catalog (Launchpad/Summon) http://findit.library.gwu.edu/search'),
-    '#required' => FALSE,
-  );
 
-  $form['catalog_pointer_fallback'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Use the WRLC Catalog'),
-    '#default_value' => variable_get('catalog_pointer_fallback', 0),
-    '#description' => t('Use the WRLC catalog (fallback if Summon is down) http://discovery.wrlc.org'),
-    '#required' => FALSE,
-  );
+//  $form['catalog_pointer_default'] = array(
+//    '#type' => 'checkbox',
+//    '#title' => t('Use the Default Catalog'),
+//    '#default_value' => variable_get('catalog_pointer_default', 1),
+//    '#description' => t('Use the default catalog (Launchpad/Summon) http://findit.library.gwu.edu/search'),
+//    '#required' => FALSE,
+//  );
 
-  $form['catalog_pointer_alternate'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Use an Alternate URL'),
-    '#default_value' => variable_get('catalog_pointer_alternate', 0),
-    '#description' => t('Set the URL manually below'),
-    '#required' => FALSE,
-  );
+//  $form['catalog_pointer_fallback'] = array(
+//    '#type' => 'checkbox',
+//    '#title' => t('Use the WRLC Catalog'),
+//    '#default_value' => variable_get('catalog_pointer_fallback', 0),
+//    '#description' => t('Use the WRLC catalog (fallback if Summon is down) http://discovery.wrlc.org'),
+//    '#required' => FALSE,
+//  );
+
+//  $form['catalog_pointer_alternate'] = array(
+//    '#type' => 'checkbox',
+//    '#title' => t('Use an Alternate URL'),
+//    '#default_value' => variable_get('catalog_pointer_alternate', 0),
+//    '#description' => t('Set the URL manually below'),
+//    '#required' => FALSE,
+//  );
+
 
   $form['catalog_pointer_target'] = array(
     '#type' => 'textfield',
@@ -114,11 +129,9 @@ function catalog_pointer_form($form, &$form_state) {
     '#default_value' => variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search'),
     '#size' => 40,
     '#maxlength' => 80,
-    '#description' => t('<p>(check the "Use an Alternate URL" box above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://discovery.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
+    '#description' => t('<p>(check the "Set the URL manually below" button above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://discovery.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
     '#required' => FALSE,
   );
-
-
 
   return system_settings_form($form);
  
