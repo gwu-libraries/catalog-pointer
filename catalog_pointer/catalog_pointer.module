@@ -5,13 +5,13 @@
  * Provide the functions for the Catalog Pointer module
  */
 
-// pulls var from admin form
+// Pulls the alternate URL var from the admin form.
 function catalog_pointer_url(){
   $catalogTarget = variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search');
   return $catalogTarget;
 }
 
-// checks radio option
+// Checks the radio option.
 function catalog_get_option(){
   $catalogDefault = variable_get('catalog_radio_choice', 'default');
   return $catalogDefault;  
@@ -129,7 +129,7 @@ function catalog_pointer_form($form, &$form_state) {
     '#default_value' => variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search'),
     '#size' => 40,
     '#maxlength' => 80,
-    '#description' => t('<p>(check the "Set the URL manually below" button above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://discovery.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
+    '#description' => t('<p>(check the "Set the URL manually below" button above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://discovery.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results when searching by anything other than keywords. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
     '#required' => FALSE,
   );
 
