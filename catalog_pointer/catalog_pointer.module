@@ -13,17 +13,7 @@ function catalog_pointer_url(){
 
 // checks radio option
 function catalog_get_option(){
-  $catalogOption = variable_get('annotate_deletion', 0);
-
-  if ($catalogOption == 0) {
-    $catalogDefault = 'never';
-  }
-  elseif ($catalogOption == 1) {
-    $catalogDefault = 'random';
-  }
-  elseif ($catalogOption == 2) {
-    $catalogDefault = 'thirty';
-  }
+  $catalogOption = variable_get('catalog_radio_choice', 'default');
   return $catalogDefault;  
 }
 
@@ -79,14 +69,14 @@ function catalog_pointer_menu() {
 function catalog_pointer_form($form, &$form_state) {
 
     $radioOptions = array(
-    'never'=>t('never'),
-    'random'=>t('random'),
-    'thirty'=>t('30 days')
+    'default'=>t('default catalog'),
+    'fallback'=>t('fallback catalog'),
+    'alternate'=>t('alternate url')
     );
 
     $testVar = catalog_get_option();
 
-  $form['annotate_deletion'] = array(
+  $form['catalog_radio_choice'] = array(
     '#type' => 'radios',
     '#title' => t('Choose the target for the Catalog search'),
     '#description' => $testVar,
