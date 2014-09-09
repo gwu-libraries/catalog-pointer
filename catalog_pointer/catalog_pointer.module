@@ -11,9 +11,24 @@ function catalog_pointer_url(){
   return $catalogTarget;
 }
 
+// checks radio option
+function catalog_get_option(){
+  $catalogOption = variable_get('annotate_deletion', 0);
+
+  if ($catalogOption == 0) {
+    $catalogDefault = 'never';
+  }
+  elseif ($catalogOption == 1) {
+    $catalogDefault = 'random';
+  }
+  elseif ($catalogOption == 2) {
+    $catalogDefault = 'thirty';
+  }
+  return $catalogDefault;  
+}
+
 // checks to see if the Default target is selected
 function catalog_pointer_check(){
-  $catalogOption = variable_get('annotate_deletion', 0)
   $catalogDefaultBox = variable_get('catalog_pointer_default', '1');
   $catalogFallbackBox = variable_get('catalog_pointer_fallback', '0');
   $catalogAlternateBox = variable_get('catalog_pointer_alternate', '0');
@@ -63,21 +78,21 @@ function catalog_pointer_menu() {
 
 function catalog_pointer_form($form, &$form_state) {
 
-    $options = array(
+    $radioOptions = array(
     'never'=>t('never'),
     'random'=>t('random'),
     'thirty'=>t('30 days')
     );
 
-    $form['annotate_deletion'] = array(
+  $form['annotate_deletion'] = array(
     '#type' => 'radios',
     '#title' => t('Annotations will be deleted'),
     '#description' => $testVar,
-    '#options' => $options,
-    '#default_value'=>'random',
-    );
+    '#options' => $radioOptions,
+    '#default_value'=>catalog_get_option(),
+  );
 
-    $form['catalog_pointer_default'] = array(
+  $form['catalog_pointer_default'] = array(
     '#type' => 'checkbox',
     '#title' => t('Use the Default Catalog'),
     '#default_value' => variable_get('catalog_pointer_default', 1),
@@ -85,7 +100,7 @@ function catalog_pointer_form($form, &$form_state) {
     '#required' => FALSE,
   );
 
-    $form['catalog_pointer_fallback'] = array(
+  $form['catalog_pointer_fallback'] = array(
     '#type' => 'checkbox',
     '#title' => t('Use the WRLC Catalog'),
     '#default_value' => variable_get('catalog_pointer_fallback', 0),
@@ -93,7 +108,7 @@ function catalog_pointer_form($form, &$form_state) {
     '#required' => FALSE,
   );
 
-    $form['catalog_pointer_alternate'] = array(
+  $form['catalog_pointer_alternate'] = array(
     '#type' => 'checkbox',
     '#title' => t('Use an Alternate URL'),
     '#default_value' => variable_get('catalog_pointer_alternate', 0),
