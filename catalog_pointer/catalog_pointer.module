@@ -62,11 +62,19 @@ function catalog_pointer_form($form, &$form_state) {
     '#required' => FALSE,
   );
 
-    $form['catalog_pointer_alternate'] = array(
+    $form['catalog_pointer_fallback'] = array(
     '#type' => 'checkbox',
     '#title' => t('Use the WRLC Catalog'),
-    '#default_value' => variable_get('catalog_pointer_alternate', 0),
+    '#default_value' => variable_get('catalog_pointer_fallback', 0),
     '#description' => t('Use the WRLC catalog (fallback if Summon is down) http://discovery.wrlc.org'),
+    '#required' => FALSE,
+  );
+
+    $form['catalog_pointer_alternate'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use an Alternate URL'),
+    '#default_value' => variable_get('catalog_pointer_alternate', 0),
+    '#description' => t('Set the URL manually below'),
     '#required' => FALSE,
   );
 
@@ -76,7 +84,7 @@ function catalog_pointer_form($form, &$form_state) {
     '#default_value' => variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search'),
     '#size' => 40,
     '#maxlength' => 80,
-    '#description' => t('<p>(uncheck the Default Catalog Target box to use this) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://discovery.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
+    '#description' => t('<p>(check the "Use an Alternate URL" box above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://discovery.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
     '#required' => TRUE,
   );
 
