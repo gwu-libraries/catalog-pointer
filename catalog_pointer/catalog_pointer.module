@@ -56,9 +56,17 @@ function catalog_pointer_menu() {
 function catalog_pointer_form($form, &$form_state) {
     $form['catalog_pointer_default'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Use the Default Catalog Target'),
+    '#title' => t('Use the Default Catalog'),
     '#default_value' => variable_get('catalog_pointer_default', 1),
-    '#description' => t('Use the default catalog target (Summon) http://findit.library.gwu.edu/search. IMPORTANT: if this is unchecked, the catalog will use the url supplied in the textfield below'),
+    '#description' => t('Use the default catalog (Launchpad/Summon) http://findit.library.gwu.edu/search'),
+    '#required' => FALSE,
+  );
+
+    $form['catalog_pointer_alternate'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use the WRLC Catalog'),
+    '#default_value' => variable_get('catalog_pointer_alternate', 0),
+    '#description' => t('Use the WRLC catalog (fallback if Summon is down) http://discovery.wrlc.org'),
     '#required' => FALSE,
   );
 
