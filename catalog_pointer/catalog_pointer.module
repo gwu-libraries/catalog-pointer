@@ -13,7 +13,7 @@ function catalog_pointer_url(){
 
 // checks radio option
 function catalog_get_option(){
-  $catalogOption = variable_get('catalog_radio_choice', 'default');
+  $catalogDefault = variable_get('catalog_radio_choice', 'default');
   return $catalogDefault;  
 }
 
