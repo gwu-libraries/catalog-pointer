@@ -12,6 +12,18 @@ function catalog_pointer_url(){
   return $catalogTarget;
 }
 
+// checks to see if the Default target is selected
+function catalog_pointer_check(){
+  $catalogCheckbox = variable_get('catalog_pointer_default', '1');
+  if ($catalogCheckbox == 1) {
+    $catalogTarget = 'http://findit.library.gwu.edu/search';
+  }
+  else {
+    $catalogTarget = catalog_pointer_url();
+  }
+  return $catalogTarget;
+}
+
  /**
  * Defines the Catalog Pointer admin settings form 
  */
