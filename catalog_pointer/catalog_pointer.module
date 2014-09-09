@@ -42,6 +42,14 @@ function catalog_pointer_menu() {
 }
 
 function catalog_pointer_form($form, &$form_state) {
+    $form['catalog_pointer_default'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Catalog Pointer test'),
+    '#default_value' => variable_get('catalog_pointer_default', 1),
+    '#description' => t('Use the default catalog API (Summon) http://findit.library.gwu.edu/search'),
+    '#required' => FALSE,
+  );
+
   $form['catalog_pointer_target'] = array(
     '#type' => 'textfield',
     '#title' => t('Catalog Pointer'),
@@ -52,5 +60,8 @@ function catalog_pointer_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
+
+
   return system_settings_form($form);
+ 
 }
