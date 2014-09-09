@@ -84,9 +84,11 @@ function catalog_pointer_form($form, &$form_state) {
     'thirty'=>t('30 days')
     );
 
+    $testVar = catalog_get_option();
+
   $form['annotate_deletion'] = array(
     '#type' => 'radios',
-    '#title' => t('Annotations will be deleted'),
+    '#title' => t('Choose the target for the Catalog search'),
     '#description' => $testVar,
     '#options' => $radioOptions,
     '#default_value'=>catalog_get_option(),
