@@ -26,7 +26,7 @@ function catalog_pointer_check(){
   //  $catalogTarget = 'http://findit.library.gwu.edu/search';
   //}
   //elseif ($catalogFallbackBox == 1) {
-  //  $catalogTarget = 'http://discovery.wrlc.org';
+  //  $catalogTarget = 'http://catalog.wrlc.org';
   //}
   //elseif ($catalogAlternateBox == 1) {
   //  $catalogTarget = catalog_pointer_url();
@@ -39,7 +39,7 @@ function catalog_pointer_check(){
     $catalogTarget = 'http://findit.library.gwu.edu/search';
   }
   elseif (catalog_get_option() == 'fallback') {
-    $catalogTarget = 'http://discovery.wrlc.org';
+    $catalogTarget = 'http://catalog.wrlc.org';
   }
   elseif (catalog_get_option() == 'alternate') {
     $catalogTarget = catalog_pointer_url();
@@ -58,8 +58,8 @@ function catalog_pointer_check(){
 
 function catalog_pointer_permission() {
   return array(
-    'catalog pointer config' => array(
-      'title' => t('Administer Catalog Search Configuration'),
+    'administer catalog pointer' => array(
+      'title' => t('Administer Catalog Pointer'),
       'description' => t('Allows user to access the Catalog Search configuration page'),
     ),
   );
@@ -77,15 +77,41 @@ function catalog_pointer_permission() {
 //  return system_settings_form($form);
 //}
 
+function check_priv_init() {
+  if(user_access('administer catalog pointer')) {
+    $checkPriv = 'testing permissions: yes';
+  }
+  else {
+    $checkPriv = 'testing permissions: no';
+  }
+  return $checkPriv;
+}
+
 function catalog_pointer_menu() {
 
-  if(user_access('catalog pointer config')) {
+  if(user_access('administer catalog pointer')) {
 
     $items = array();
 
     $items['admin/config/content/catalog_pointer'] = array(
-      'title' => 'Catalog Search Configuration',
-      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.'),
+      'title' => 'Catalog Search Configuration (user access test: yes)',
+      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . check_priv(),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('catalog_pointer_form'),
+      'access arguments' => array('access administration pages'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
+  }
+
+  else {
+
+    $items = array();
+
+    $items['admin/config/content/catalog_pointer'] = array(
+      'title' => 'Catalog Search Configuration (user access test: no)',
+      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . check_priv(),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
@@ -103,7 +129,7 @@ function catalog_pointer_form($form, &$form_state) {
     // Sets options as array for radio buttons.
     $radioOptions = array(
     'default'=>t('Use the default catalog (Launchpad/Summon) http://findit.library.gwu.edu/search'),
-    'fallback'=>t('Use the WRLC catalog (fallback if Summon is down) http://discovery.wrlc.org'),
+    'fallback'=>t('Use the WRLC catalog (fallback if Summon is down) http://catalog.wrlc.org'),
     'alternate'=>t('Set the URL manually below')
     );
 
@@ -128,7 +154,7 @@ function catalog_pointer_form($form, &$form_state) {
 //    '#type' => 'checkbox',
 //    '#title' => t('Use the WRLC Catalog'),
 //    '#default_value' => variable_get('catalog_pointer_fallback', 0),
-//    '#description' => t('Use the WRLC catalog (fallback if Summon is down) http://discovery.wrlc.org'),
+//    '#description' => t('Use the WRLC catalog (fallback if Summon is down) http://catalog.wrlc.org'),
 //    '#required' => FALSE,
 //  );
 
@@ -147,7 +173,7 @@ function catalog_pointer_form($form, &$form_state) {
     '#default_value' => variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search'),
     '#size' => 40,
     '#maxlength' => 80,
-    '#description' => t('<p>(check the "Set the URL manually below" button above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://discovery.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results when searching by anything other than keywords. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
+    '#description' => t('<p>(check the "Set the URL manually below" button above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://catalog.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results when searching by anything other than keywords. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
     '#required' => FALSE,
   );
 
