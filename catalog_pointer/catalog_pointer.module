@@ -5,6 +5,48 @@
  * Provide the functions for the Catalog Pointer module
  */
 
+// Testing permission set and get
+/**
+ * Implements hook_permission().
+ *
+ * Defines a new permission called 'my custom permission'.
+ */
+//function catalog_pointer_permission() {
+//  return array(
+//    'my custom permission' => array(
+//      'title' => t('My custom permission'),
+//      'description' => t('Allows users to perform a task in my module.'),
+//    ),
+//  );
+//}
+/**
+ * Implements hook_init().
+ *
+ * Runs every time a page is requested on the site.
+ */
+function catalog_pointer_init() {
+  if (user_access('my custom permission')) {
+    drupal_set_message(t('User has my custom permission'));
+  }
+  else {
+    drupal_set_message(t('User does not have my custom permission'));
+  }
+  if (user_access('catalog admin')) {
+    drupal_set_message(t('User has catalog admin permission'));
+    $hasCat = 'yes';
+  }
+  else {
+    drupal_set_message(t('User does not have catalog admin permission'));
+    $hasCat= 'no';
+  }
+  return $hasCat;
+}
+
+
+// END set and get test
+
+
+
 // Pulls the alternate URL var from the admin form.
 function catalog_pointer_url(){
   $catalogTarget = variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search');
@@ -38,7 +80,7 @@ function catalog_pointer_check(){
 
 
 // for testing...
-drupal_static_reset('user_access');
+// drupal_static_reset('user_access');
 
 /**
  * Implements the hook_permission().
@@ -46,9 +88,13 @@ drupal_static_reset('user_access');
 
 function catalog_pointer_permission() {
   return array(
-    'administer catalog pointer' => array(
+    'catalog admin' => array(
       'title' => t('Administer Catalog Pointer'),
       'description' => t('Allows user to access the Catalog Search configuration page'),
+    ),
+    'my custom permission' => array(
+      'title' => t('My custom permission'),
+      'description' => t('Allows users to perform a task in my module.'),
     ),
   );
 }
@@ -57,8 +103,8 @@ function catalog_pointer_permission() {
  * Defines the Catalog Pointer admin settings form 
  */
 
-function check_priv_init() {
-  if(user_access('administer catalog pointer')) {
+function check_priv() {
+  if (user_access('catalog admin')) {
     $checkPriv = 'testing permissions: yes';
   }
   else {
@@ -69,13 +115,13 @@ function check_priv_init() {
 
 function catalog_pointer_menu() {
 
-  if(user_access('administer catalog pointer')) {
+  if(user_access('catalog admin')) {
 
     $items = array();
 
     $items['admin/config/content/catalog_pointer'] = array(
       'title' => 'Catalog Search Configuration (user access test: yes)',
-      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . check_priv_init(),
+      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . catalog_pointer_init(),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
@@ -91,7 +137,7 @@ function catalog_pointer_menu() {
 
     $items['admin/config/content/catalog_pointer'] = array(
       'title' => 'Catalog Search Configuration (user access test: no)',
-      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . check_priv_init(),
+      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . catalog_pointer_init(),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
