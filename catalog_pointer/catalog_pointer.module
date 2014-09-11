@@ -66,19 +66,25 @@ function catalog_pointer_check(){
 /* more... */
 
 function catalog_pointer_menu() {
-  $items = array();
 
-  $items['admin/config/content/catalog_pointer'] = array(
-    'title' => 'Catalog Search Configuration',
-    'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('catalog_pointer_form'),
-    'access arguments' => array('access administration pages'),
-    'type' => MENU_NORMAL_ITEM,
-  );
+  if(user_access('catalog_pointer_config')) {
 
-  return $items;
+    $items = array();
+
+    $items['admin/config/content/catalog_pointer'] = array(
+      'title' => 'Catalog Search Configuration',
+      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('catalog_pointer_form'),
+      'access arguments' => array('access administration pages'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
+  }
+
 }
+
 
 function catalog_pointer_form($form, &$form_state) {
 
@@ -143,9 +149,9 @@ function catalog_pointer_form($form, &$form_state) {
 
 function catalog_pointer_permission() {
   return array(
-    'catalog pointer' => array(
-      'title' => t('Administer Catalog Pointer'),
-      'description' => t("Allows user to access the Catalog Pointer configuration page"),
+    'catalog_pointer_config' => array(
+      'title' => t('Administer Catalog Search Configuration'),
+      'description' => t("Allows user to access the Catalog Search configuration page"),
       'restrict access' => TRUE,
     ),
   );
