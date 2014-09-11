@@ -51,6 +51,20 @@ function catalog_pointer_check(){
   return $catalogTarget;
 }
 
+
+/**
+ * Implements the hook_permission().
+  */
+
+function catalog_pointer_permission() {
+  return array(
+    'catalog pointer config' => array(
+      'title' => t('Administer Catalog Search Configuration'),
+      'description' => t('Allows user to access the Catalog Search configuration page'),
+    ),
+  );
+}
+
  /**
  * Defines the Catalog Pointer admin settings form 
  */
@@ -63,11 +77,9 @@ function catalog_pointer_check(){
 //  return system_settings_form($form);
 //}
 
-/* more... */
-
 function catalog_pointer_menu() {
 
-  if(user_access('catalog_pointer_config')) {
+  if(user_access('catalog pointer config')) {
 
     $items = array();
 
@@ -141,18 +153,4 @@ function catalog_pointer_form($form, &$form_state) {
 
   return system_settings_form($form);
  
-}
-
-/**
- * Implements the hook_permission().
-  */
-
-function catalog_pointer_permission() {
-  return array(
-    'catalog_pointer_config' => array(
-      'title' => t('Administer Catalog Search Configuration'),
-      'description' => t("Allows user to access the Catalog Search configuration page"),
-      'restrict access' => TRUE,
-    ),
-  );
 }
