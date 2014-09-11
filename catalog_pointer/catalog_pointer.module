@@ -19,21 +19,6 @@ function catalog_get_option(){
 
 // Checks to see if the Default target is selected (this is the function that is called in jsbottom.html for the GW Libraries Drupal theme).
 function catalog_pointer_check(){
-  //$catalogDefaultBox = variable_get('catalog_pointer_default', '1');
-  //$catalogFallbackBox = variable_get('catalog_pointer_fallback', '0');
-  //$catalogAlternateBox = variable_get('catalog_pointer_alternate', '0');
-  //if ($catalogDefaultBox == 1) {
-  //  $catalogTarget = 'http://findit.library.gwu.edu/search';
-  //}
-  //elseif ($catalogFallbackBox == 1) {
-  //  $catalogTarget = 'http://catalog.wrlc.org';
-  //}
-  //elseif ($catalogAlternateBox == 1) {
-  //  $catalogTarget = catalog_pointer_url();
-  //}
-  //else {
-  //  $catalogTarget = 'http://findit.library.gwu.edu/search';
-  //}
 
   if (catalog_get_option() == 'default') {
     $catalogTarget = 'http://findit.library.gwu.edu/search';
@@ -52,6 +37,9 @@ function catalog_pointer_check(){
 }
 
 
+// for testing...
+drupal_static_reset('user_access');
+
 /**
  * Implements the hook_permission().
   */
@@ -68,14 +56,6 @@ function catalog_pointer_permission() {
  /**
  * Defines the Catalog Pointer admin settings form 
  */
-//function catalog_pointer_admin_settings_form() {
-//  $form['catalog_target'] = array(
-//    '#type' => 'textfield',
-//    '#title' => t('Target URL for the Catalog Search'),
-//    '#default_value' => variable_get('catalog_target', t('http://findit.library.gwu.edu/search')),
-//  );
-//  return system_settings_form($form);
-//}
 
 function check_priv_init() {
   if(user_access('administer catalog pointer')) {
@@ -95,7 +75,7 @@ function catalog_pointer_menu() {
 
     $items['admin/config/content/catalog_pointer'] = array(
       'title' => 'Catalog Search Configuration (user access test: yes)',
-      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . check_priv(),
+      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . check_priv_init(),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
@@ -111,7 +91,7 @@ function catalog_pointer_menu() {
 
     $items['admin/config/content/catalog_pointer'] = array(
       'title' => 'Catalog Search Configuration (user access test: no)',
-      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . check_priv(),
+      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . check_priv_init(),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
@@ -122,7 +102,6 @@ function catalog_pointer_menu() {
   }
 
 }
-
 
 function catalog_pointer_form($form, &$form_state) {
 
@@ -140,32 +119,6 @@ function catalog_pointer_form($form, &$form_state) {
     '#options' => $radioOptions,
     '#default_value'=>catalog_get_option(),
   );
-
-
-//  $form['catalog_pointer_default'] = array(
-//    '#type' => 'checkbox',
-//    '#title' => t('Use the Default Catalog'),
-//    '#default_value' => variable_get('catalog_pointer_default', 1),
-//    '#description' => t('Use the default catalog (Launchpad/Summon) http://findit.library.gwu.edu/search'),
-//    '#required' => FALSE,
-//  );
-
-//  $form['catalog_pointer_fallback'] = array(
-//    '#type' => 'checkbox',
-//    '#title' => t('Use the WRLC Catalog'),
-//    '#default_value' => variable_get('catalog_pointer_fallback', 0),
-//    '#description' => t('Use the WRLC catalog (fallback if Summon is down) http://catalog.wrlc.org'),
-//    '#required' => FALSE,
-//  );
-
-//  $form['catalog_pointer_alternate'] = array(
-//    '#type' => 'checkbox',
-//    '#title' => t('Use an Alternate URL'),
-//    '#default_value' => variable_get('catalog_pointer_alternate', 0),
-//    '#description' => t('Set the URL manually below'),
-//    '#required' => FALSE,
-//  );
-
 
   $form['catalog_pointer_target'] = array(
     '#type' => 'textfield',
