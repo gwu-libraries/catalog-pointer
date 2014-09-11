@@ -136,3 +136,17 @@ function catalog_pointer_form($form, &$form_state) {
   return system_settings_form($form);
  
 }
+
+/**
+ * Implements the hook_permission().
+  */
+
+function catalog_pointer_permission() {
+  return array(
+    'catalog pointer' => array(
+      'title' => t('Administer Catalog Pointer'),
+      'description' => t("Allows user to access the Catalog Pointer configuration page"),
+      'restrict access' => TRUE,
+    ),
+  );
+}
