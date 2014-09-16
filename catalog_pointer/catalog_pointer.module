@@ -79,6 +79,27 @@ function catalog_pointer_check(){
 }
 
 
+// Sets the Bento URL
+
+function catalog_pointer_bento(){
+
+  if (bento_get_option() == 'default') {
+    $bentoTarget = 'http://findit.library.gwu.edu/search';
+  }
+  elseif (bento_get_option() == 'fallback') {
+    $bentoTarget = 'http://catalog.wrlc.org';
+  }
+  elseif (bento_get_option() == 'alternate') {
+    $bentoTarget = catalog_pointer_url();
+  }
+  else {
+    $bentoTarget = 'http://findit.library.gwu.edu/search';
+  }  
+
+  return $bentoTarget;
+
+}
+
 // for testing...
 // drupal_static_reset('user_access');
 
