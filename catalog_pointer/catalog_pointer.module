@@ -142,7 +142,7 @@ function catalog_pointer_menu() {
 
     $items['admin/config/content/catalog_pointer'] = array(
       'title' => 'Catalog Search Configuration (user access test: yes)',
-      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . catalog_pointer_init(),
+      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and Bento All-Search') . catalog_pointer_init(),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
@@ -158,7 +158,7 @@ function catalog_pointer_menu() {
 
     $items['admin/config/content/catalog_pointer'] = array(
       'title' => 'Catalog Search Configuration (user access test: no)',
-      'description' => t('Configuration for the Catalog Search. Use this the change the target URL for the Catalog Search.') . catalog_pointer_init(),
+      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and Bento All-Search') . catalog_pointer_init(),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
