@@ -53,10 +53,16 @@ function catalog_pointer_url(){
   return $catalogTarget;
 }
 
-// Checks the radio option.
+// Checks the Catalog radio option.
 function catalog_get_option(){
   $catalogDefault = variable_get('catalog_radio_choice', 'default');
   return $catalogDefault;  
+}
+
+// Checks the Bento radio option.
+function bento_get_option(){
+  $bentoDefault = variable_get('bento_radio_choice', 'prod');
+  return $bentoDefault;  
 }
 
 // Checks to see if the Default target is selected (this is the function that is called in jsbottom.html for the GW Libraries Drupal theme).
@@ -172,7 +178,7 @@ function catalog_pointer_menu() {
 
 function catalog_pointer_form($form, &$form_state) {
 
-    // Sets options as array for radio buttons.
+    // Sets options as array for Catalog target radio buttons.
     $radioOptions = array(
     'default'=>t('Use the default catalog (Launchpad/Summon) http://findit.library.gwu.edu/search'),
     'fallback'=>t('Use the WRLC catalog (fallback if Summon is down) http://catalog.wrlc.org'),
@@ -193,8 +199,22 @@ function catalog_pointer_form($form, &$form_state) {
     '#default_value' => variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search'),
     '#size' => 40,
     '#maxlength' => 80,
-    '#description' => t('<p>(check the "Set the URL manually below" button above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://catalog.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn"t return any results when searching by anything other than keywords. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
+    '#description' => t('<p>(check the "Set the URL manually below" button above) Target URL for the Libraries catalog search.</p> <ul><li>Default catalog URL (Summon is up) http://findit.library.gwu.edu/search</li><li>Test/beta catalog URL: http://gwfindit-beta.wrlc.org/search</li><li>Fallback catalog URL (Summon is down): http://catalog.wrlc.org</li></ul><p>Currently the search string sent to the WRLC Catalog doesn\'t return any results when searching by anything other than keywords. I may change this to a select menu that will also update the appended vars sent from the form.</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
     '#required' => FALSE,
+  );
+
+    // Sets options as array for Bento target radio buttons.
+    $radioBentoOptions = array(
+    'prod'=>t('Use the production server http://gwbento-prod.wrlc.org'),
+    'test'=>t('Use the test server http://gwbento-prod.wrlc.org')
+    );
+
+  $form['bento_radio_choice'] = array(
+    '#type' => 'radios',
+    '#title' => t('Choose the target for All-Search (Bento)'),
+    '#description' => t('Set the target URL for All-Search (Bento) to use. This should only be changed from the default for testing or if there are issues with the production server (i.e. it\'s down)'),
+    '#options' => $radioBentoOptions,
+    '#default_value'=>bento_get_option(),
   );
 
   return system_settings_form($form);
