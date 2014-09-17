@@ -224,6 +224,16 @@ function catalog_pointer_form($form, &$form_state) {
     '#default_value'=>bento_get_option(),
   );
 
+    $form['bento_pointer_target'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Alternate All-Search (Bento) URL'),
+    '#default_value' => variable_get('bento_pointer_target', 'http://gwbento-prod.wrlc.org:8080/'),
+    '#size' => 40,
+    '#maxlength' => 80,
+    '#description' => t('<p>(check the "Set the URL manually below" button above) Target URL for All-Search (Bento).</p><p>On the production site you will need to clear the site cache at <a href="/admin/config/development/performance">/admin/config/development/performance</a></p>'),
+    '#required' => FALSE,
+  );
+
   return system_settings_form($form);
  
 }
