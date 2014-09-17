@@ -47,10 +47,16 @@ function catalog_pointer_init() {
 
 
 
-// Pulls the alternate URL var from the admin form.
+// Pulls the alternate Catalog URL var from the admin form.
 function catalog_pointer_url(){
   $catalogTarget = variable_get('catalog_pointer_target', 'http://findit.library.gwu.edu/search');
   return $catalogTarget;
+}
+
+// Pulls the alternate Bento URL var from the admin form.
+function bento_pointer_url(){
+  $bentoTarget = variable_get('bento_pointer_target', 'http://gwbento-prod.wrlc.org:8080/');
+  return $bentoTarget;
 }
 
 // Checks the Catalog radio option.
@@ -94,6 +100,9 @@ function catalog_pointer_bento(){
   }
   elseif (bento_get_option() == 'test') {
     $bentoTarget = 'http://gwbento-test.wrlc.org/';
+  }
+  elseif (catalog_get_option() == 'alternate') {
+    $bentoTarget = bento_pointer_url();
   }
   else {
     $bentoTarget = 'http://gwbento-prod.wrlc.org:8080/';
