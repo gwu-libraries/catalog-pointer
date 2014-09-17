@@ -212,7 +212,8 @@ function catalog_pointer_form($form, &$form_state) {
     // Sets options as array for Bento target radio buttons.
     $radioBentoOptions = array(
     'prod'=>t('Use the production server http://gwbento-prod.wrlc.org:8080'),
-    'test'=>t('Use the test server http://gwbento-test.wrlc.org')
+    'test'=>t('Use the test server http://gwbento-test.wrlc.org'),
+    'alternate'=>t('Set the URL manually below')
     );
 
   $form['bento_radio_choice'] = array(
