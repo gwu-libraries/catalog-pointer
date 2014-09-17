@@ -89,17 +89,14 @@ function catalog_pointer_check(){
 
 function catalog_pointer_bento(){
 
-  if (bento_get_option() == 'default') {
-    $bentoTarget = 'http://findit.library.gwu.edu/search';
+  if (bento_get_option() == 'prod') {
+    $bentoTarget = 'http://gwbento-prod.wrlc.org:8080/';
   }
-  elseif (bento_get_option() == 'fallback') {
-    $bentoTarget = 'http://catalog.wrlc.org';
-  }
-  elseif (bento_get_option() == 'alternate') {
-    $bentoTarget = catalog_pointer_url();
+  elseif (bento_get_option() == 'test') {
+    $bentoTarget = 'http://gwbento-test.wrlc.org/';
   }
   else {
-    $bentoTarget = 'http://findit.library.gwu.edu/search';
+    $bentoTarget = 'http://gwbento-prod.wrlc.org:8080/';
   }  
 
   return $bentoTarget;
@@ -206,7 +203,7 @@ function catalog_pointer_form($form, &$form_state) {
     // Sets options as array for Bento target radio buttons.
     $radioBentoOptions = array(
     'prod'=>t('Use the production server http://gwbento-prod.wrlc.org'),
-    'test'=>t('Use the test server http://gwbento-prod.wrlc.org')
+    'test'=>t('Use the test server http://gwbento-test.wrlc.org')
     );
 
   $form['bento_radio_choice'] = array(
