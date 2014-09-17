@@ -26,13 +26,13 @@
  */
 function catalog_pointer_init() {
   if (user_access('my custom permission')) {
-    drupal_set_message(t('User has my custom permission'));
+    //drupal_set_message(t('User has my custom permission'));
   }
   else {
-    drupal_set_message(t('User does not have my custom permission'));
+    //drupal_set_message(t('User does not have my custom permission'));
   }
   if (user_access('catalog admin')) {
-    drupal_set_message(t('User has catalog admin permission'));
+    //drupal_set_message(t('User has catalog admin permission'));
     $hasCat = 'yes';
   }
   else {
@@ -153,8 +153,8 @@ function catalog_pointer_menu() {
     $items = array();
 
     $items['admin/config/content/catalog_pointer'] = array(
-      'title' => 'Catalog Search Configuration (user access test: yes)',
-      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and Bento All-Search') . catalog_pointer_init(),
+      'title' => 'Catalog Search Configuration (access test: yes)',
+      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and Bento All-Search'),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
@@ -169,8 +169,8 @@ function catalog_pointer_menu() {
     $items = array();
 
     $items['admin/config/content/catalog_pointer'] = array(
-      'title' => 'Catalog Search Configuration (user access test: no)',
-      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and Bento All-Search') . catalog_pointer_init(),
+      'title' => 'Catalog Search Configuration (access test: no)',
+      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and Bento All-Search'),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
