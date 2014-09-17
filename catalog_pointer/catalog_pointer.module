@@ -101,7 +101,7 @@ function catalog_pointer_bento(){
   elseif (bento_get_option() == 'test') {
     $bentoTarget = 'http://gwbento-test.wrlc.org/';
   }
-  elseif (catalog_get_option() == 'alternate') {
+  elseif (bento_get_option() == 'alternate') {
     $bentoTarget = bento_pointer_url();
   }
   else {
