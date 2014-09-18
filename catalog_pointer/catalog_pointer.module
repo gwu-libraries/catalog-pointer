@@ -36,7 +36,7 @@ function catalog_pointer_init() {
     $hasCat = 'yes';
   }
   else {
-    drupal_set_message(t('User does not have catalog admin permission'));
+    //drupal_set_message(t('User does not have catalog admin permission'));
     $hasCat= 'no';
   }
   return $hasCat;
