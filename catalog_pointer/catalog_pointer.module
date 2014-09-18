@@ -42,10 +42,7 @@ function catalog_pointer_init() {
   return $hasCat;
 }
 
-
 // END set and get test
-
-
 
 // Pulls the alternate Catalog URL var from the admin form.
 function catalog_pointer_url(){
@@ -91,7 +88,7 @@ function catalog_pointer_check(){
 }
 
 
-// Sets the Bento URL
+// Sets the Bento URL.
 
 function catalog_pointer_bento(){
 
@@ -112,7 +109,7 @@ function catalog_pointer_bento(){
 
 }
 
-// for testing...
+// For user-access testing.
 // drupal_static_reset('user_access');
 
 /**
@@ -133,7 +130,7 @@ function catalog_pointer_permission() {
 }
 
  /**
- * Defines the Catalog Pointer admin settings form 
+ * Defines the Catalog Pointer admin settings form.
  */
 
 function check_priv() {
@@ -153,8 +150,8 @@ function catalog_pointer_menu() {
     $items = array();
 
     $items['admin/config/content/catalog_pointer'] = array(
-      'title' => 'Catalog Search Configuration (access test: yes)',
-      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and Bento All-Search'),
+      'title' => 'Catalog Search Configuration',
+      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and All-Search (Bento)'),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
@@ -169,8 +166,8 @@ function catalog_pointer_menu() {
     $items = array();
 
     $items['admin/config/content/catalog_pointer'] = array(
-      'title' => 'Catalog Search Configuration (access test: no)',
-      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and Bento All-Search'),
+      'title' => 'Catalog Search Configuration',
+      'description' => t('Configuration for the Catalog Search and Bento. Use this the change the target URL for the Catalog Search and All-Search (Bento)'),
       'page callback' => 'drupal_get_form',
       'page arguments' => array('catalog_pointer_form'),
       'access arguments' => array('access administration pages'),
