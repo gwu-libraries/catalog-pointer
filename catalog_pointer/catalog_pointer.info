@@ -1,5 +1,5 @@
 name = Catalog Pointer
-description = This module sets the url (target) for the Libraries catalog search tools (Launchpad and Bento).
+description = This module sets the url (target) for the Libraries catalog search tools (Launchpad and All-Search/Bento).
 core = "7.x"
 package = "GW Libraries"
 configure = admin/config/content/catalog_pointer
