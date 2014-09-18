@@ -88,7 +88,7 @@ function catalog_pointer_check(){
 }
 
 
-// Sets the Bento URL.
+// Sets the Bento URL (this is the function that is called in /obento/index.php for the Bento).
 
 function catalog_pointer_bento(){
 
@@ -123,16 +123,13 @@ function catalog_pointer_permission() {
       'description' => t('Allows user to access the Catalog Search configuration page'),
     ),
     'my custom permission' => array(
-      'title' => t('My custom permission'),
-      'description' => t('Allows users to perform a task in my module.'),
+      'title' => t('My custom permission (testing)'),
+      'description' => t('Allows users to perform custom task (testing).'),
     ),
   );
 }
 
- /**
- * Defines the Catalog Pointer admin settings form.
- */
-
+// Permission check (testing).
 function check_priv() {
   if (user_access('catalog admin')) {
     $checkPriv = 'testing permissions: yes';
@@ -143,6 +140,9 @@ function check_priv() {
   return $checkPriv;
 }
 
+ /**
+ * Defines the Catalog Pointer admin settings form.
+ */
 function catalog_pointer_menu() {
 
   if(user_access('catalog admin')) {
