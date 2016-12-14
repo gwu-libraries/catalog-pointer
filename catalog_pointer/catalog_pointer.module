@@ -181,6 +181,18 @@ function catalog_pointer_menu() {
 
 function catalog_pointer_form($form, &$form_state) {
 
+    // Overrides the gray placeholder text in the main searchbox
+    $form['placeholder_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Alternate Text for Searchbox (gray placeholder text)'),
+    '#default_value' => variable_get('placeholder_text', 'Das Kapital'),
+    '#size' => 40,
+    '#maxlength' => 80,
+    '#description' => t('<p>Alternate text for Searchbox (gray placeholder text)</p>'),
+    '#required' => FALSE,
+  );
+
+
     // Sets options as array for Catalog target radio buttons.
     $radioOptions = array(
     'default'=>t('Use the default catalog (Launchpad/Summon) http://findit.library.gwu.edu/search'),
