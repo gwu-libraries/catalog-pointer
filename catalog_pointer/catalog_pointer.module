@@ -87,7 +87,6 @@ function catalog_pointer_check(){
   return $catalogTarget;
 }
 
-
 // Sets the Bento URL (this is the function that is called in /obento/index.php for the Bento).
 
 function catalog_pointer_bento(){
@@ -106,6 +105,15 @@ function catalog_pointer_bento(){
   }  
 
   return $bentoTarget;
+
+}
+
+// Sets the searchbox placeholder text (this is the function that is called in the header to set the gray searchbox placeholder text for the default search.
+
+function search_placeholder(){
+
+  $placeholderText = variable_get('placeholder_text', 'search everything');
+  return $placeholderText;
 
 }
 
@@ -188,10 +196,9 @@ function catalog_pointer_form($form, &$form_state) {
     '#default_value' => variable_get('placeholder_text', 'Das Kapital'),
     '#size' => 40,
     '#maxlength' => 80,
-    '#description' => t('<p>Alternate text for Searchbox (gray placeholder text)</p>'),
+    '#description' => t('<p>Alternate text for Searchbox (gray placeholder text) <strong>leave blank for default site text</strong></p>'),
     '#required' => FALSE,
   );
-
 
     // Sets options as array for Catalog target radio buttons.
     $radioOptions = array(
