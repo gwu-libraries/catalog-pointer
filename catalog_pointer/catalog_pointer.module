@@ -112,7 +112,7 @@ function catalog_pointer_bento(){
 
 function search_placeholder(){
 
-  $placeholderText = variable_get('placeholder_text', 'search everything');
+  $placeholderText = variable_get('placeholder_text', '');
   return $placeholderText;
 
 }
@@ -193,7 +193,7 @@ function catalog_pointer_form($form, &$form_state) {
     $form['placeholder_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Alternate Text for Searchbox (gray placeholder text)'),
-    '#default_value' => variable_get('placeholder_text', 'Das Kapital'),
+    '#default_value' => variable_get('placeholder_text', ''),
     '#size' => 40,
     '#maxlength' => 80,
     '#description' => t('<p>Alternate text for Searchbox (gray placeholder text) <strong>leave blank for default site text</strong></p>'),
