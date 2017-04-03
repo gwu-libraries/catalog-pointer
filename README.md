@@ -14,7 +14,7 @@ Installation
 ------------
 
 <ol>
-	<li>Place the catalog_pointer directory and contents in the site's modules directory: sites/all/modules</li>
+	<li>Place the catalog_pointer directory and contents in the site's modules directory: `sites/all/modules`</li>
 	<li>Go to the site's Module configuration page /admin/modules and enable the Catalog Pointer module (it will be in a  group labelled GW Librairies)</li>
 	<li>Done! (go to the site admin configuration page to change settings admin/config)</li>
 </ol>
